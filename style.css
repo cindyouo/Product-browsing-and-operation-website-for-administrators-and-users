@@ -767,8 +767,8 @@ h5.widget-title {
   padding: 40px 0;
 }
 .product-image {
-  width: 100px;
-  height: 300px;
+  width: 150px;
+  height: 150px;
   object-fit: cover; /* 保持圖片比例並填滿容器 */
 }
 .product-tabs .review-item{

@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_id'])) {
     // 資料庫連線
     $servername = "localhost";
     $username = "root";
-    $password = "92MySQLcindy"; 
+    $password = "123456789"; 
     $dbname = "member";
 
     $conn = new mysqli($servername, $username, $password, $dbname);

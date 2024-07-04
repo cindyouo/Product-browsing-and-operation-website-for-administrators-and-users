@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "92MySQLcindy";
+$password = "123456789";
 $dbname = "member";
 
 // 建立資料庫連線

@@ -1,7 +1,7 @@
 <?php
   function create_connection()
   {
-    $link = mysqli_connect("localhost", "root", "92MySQLcindy")
+    $link = mysqli_connect("localhost", "root", "123456789")
       or die("無法建立資料連接: " . mysqli_connect_error());
 	  
     mysqli_query($link, "SET NAMES utf8");

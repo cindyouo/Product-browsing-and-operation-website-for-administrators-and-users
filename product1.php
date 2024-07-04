@@ -4,7 +4,7 @@ include('product_backend.php');
 // Database connection
 $servername = "localhost";
 $username = "root";
-$password = "92MySQLcindy";
+$password = "123456789";
 $dbname = "member";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -12,66 +12,59 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+?>
 
+<?php
 if (isset($_GET['id'])) {
   $product_id = $_GET['id'];
-
+  
   // Fetch the class of the current product
   $sql = "SELECT class FROM products WHERE id = ?";
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("i", $product_id);
   $stmt->execute();
   $result = $stmt->get_result();
-
+  
   if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $product_class = $row['class'];
-
+    
     // Fetch up to 4 recommended products from the same class
     $sql_recommend = "SELECT id, name, price, image FROM products WHERE class = ? AND id != ? LIMIT 4";
     $stmt_recommend = $conn->prepare($sql_recommend);
     $stmt_recommend->bind_param("si", $product_class, $product_id);
     $stmt_recommend->execute();
     $result_recommend = $stmt_recommend->get_result();
-
+    
     $recommended_products = [];
     while ($row_recommend = $result_recommend->fetch_assoc()) {
       $recommended_products[] = $row_recommend;
     }
   }
-
+  
   $stmt->close();
   $stmt_recommend->close();
-  
-  // 記錄點擊歷史
-  if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-    $sql_history = "INSERT INTO history (user_id, product_id) VALUES (?, ?)
-                    ON DUPLICATE KEY UPDATE click_count = click_count + 1, last_click_time = CURRENT_TIMESTAMP";
-    $stmt_history = $conn->prepare($sql_history);
-    $stmt_history->bind_param("ii", $user_id, $product_id);
-    $stmt_history->execute();
-    $stmt_history->close();
-  }
 }
 ?>
 
 <!DOCTYPE html>
 <html>
-<head>
-  <title>資料庫應用</title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="author" content="">
-  <meta name="keywords" content="">
-  <meta name="description" content="">
-  <link rel="stylesheet" type="text/css" href="css/vendor.css">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="style.css">
-</head>
+  <head>
+    <title>資料庫應用</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="css/vendor.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+
+  </head>
   <body>
 
     
